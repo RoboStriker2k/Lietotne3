@@ -24,7 +24,6 @@ import { Multiimgdisplay } from "./multiimgdisplay.component";
     @if (item.imgpath != null){<img src="http://localhost:3000/getfoto/?file={{ item.imgpath }}" />}
  
     @if (item.imgarr != null){
-      <p>i exist </p>
       <multiimgdisplay [imgarr]="item.imgarr"  />
 
 }
