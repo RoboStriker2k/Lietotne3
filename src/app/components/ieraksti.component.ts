@@ -20,7 +20,7 @@ import { Editcomponent } from "./Editpost.component";
 
     <h1>{{ item.title }}</h1>
     <p>{{ item.pdesc }}</p>
-    @if (item.imgpath != null){<img src="http://localhost:3000/getfoto/{{ item.imgpath }}" />}
+    @if (item.imgpath != null){<img src="http://localhost:3000/getfoto/?file={{ item.imgpath }}" />}
 
     <div>
      <button class="btn" id="{{ item.idposts }}" (click)="editfn(item.idposts)">Labot</button>
