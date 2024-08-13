@@ -1,9 +1,11 @@
 import { ChangeDetectorRef, Component, inject, Input} from "@angular/core";
 import { Ieraksts } from "../interfaces/ieraksti";
 import { Editpost } from "../interfaces/editpost";
+import { Multiimgdisplay } from "./multiimgdisplay.component";
 
 @Component({
  selector: "Editcomponent",
+ imports: [Multiimgdisplay],
  standalone: true,
  template: `
   @if (Posttatus.viewstatsus == true) {
@@ -33,7 +35,10 @@ import { Editpost } from "../interfaces/editpost";
      <h1 id="previewtitle">{{ item.title }}</h1>
      <p id="previewdesc">{{ item.pdesc }}</p>
      @if (item.imgpath != null){<img id="previewimg" src="http://localhost:3000/getfoto/{{ item.imgpath }}" />}
+     @if (item.imgarr != null){
+      <multiimgdisplay [imgarr]="item.imgarr" [editstatus]="true"  />
 
+    }
 
     </div>
 </div>
@@ -48,6 +53,7 @@ import { Editpost } from "../interfaces/editpost";
       <p>Nav ierakstu</p>
     }
     <div>
+    <button type="button" (click)="removechecked()">Noņemt atzīmētos attēlus</button>
      <button type="button" (click)="editfn()">Labot ierakstu</button>
      <button type="button" (click)="toggleedit()">Atcelt</button>
      <button type="button" (click)="toggleedit()">Aizvert</button>
@@ -75,6 +81,10 @@ cd: ChangeDetectorRef = inject(ChangeDetectorRef);
   this.Posttatus.status = false;
   this.Posttatus.viewstatsus = false;
 
+ }
+ removechecked(){
+  //#todo implement remove checked
+   
  }
 
  editfn() {

@@ -8,6 +8,10 @@ import { Component, Input } from "@angular/core";
  
    @for (img of imgarr.images; track img) {
    <img src="http://localhost:3000/getfoto/?file={{ img }}" />
+    @if (editstatus == true) {
+    <input type="checkbox" id="{{ img }}" />
+    }
+
    }  
 }
 
@@ -26,7 +30,8 @@ aimgarr = [];
  @Input () imgarr = {
     images :[]
  }
- 
+ @Input () editstatus: boolean = false;
+
 dosmgthing(){
   console.log(this.aimgarr);
  console.log(this.imgarr);
