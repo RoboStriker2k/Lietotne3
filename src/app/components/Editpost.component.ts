@@ -95,7 +95,6 @@ cd: ChangeDetectorRef = inject(ChangeDetectorRef);
    formdata.append("file", this.file);
   }
   formdata.append("idpost", this.Posttatus.idposts.toString());
-
   fetch(`http://localhost:3000/api/editpost/`, {
    method: "POST",
    body: formdata,
@@ -118,7 +117,7 @@ getpost() {
    .then((response) => response.json())
    .then((data) => {
     this.IER = data.posts;
-    this.CIER = data.posts;
+    this.CIER = JSON.parse(JSON.stringify(this.IER))
    })
    .catch((error) => {
     console.error("Error:", error);
