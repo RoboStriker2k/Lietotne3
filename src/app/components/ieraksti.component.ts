@@ -3,9 +3,10 @@ import { Ieraksts } from "../interfaces/ieraksti";
 import { Editpost } from "../interfaces/editpost";
 import { PagebuttonsComponent } from "./Pagebuttons.component";
 import { Editcomponent } from "./Editpost.component";
+import { Multiimgdisplay } from "./multiimgdisplay.component";
 @Component({
  selector: "Ieraksti",
- imports: [PagebuttonsComponent, Editcomponent],
+ imports: [PagebuttonsComponent, Editcomponent, Multiimgdisplay],
  template: ` <div>
   <div id="postcntbox">
    <p>Atrasto ierakstu skaits:{{ Ierakstuskaits }}</p>
@@ -21,7 +22,12 @@ import { Editcomponent } from "./Editpost.component";
     <h1>{{ item.title }}</h1>
     <p>{{ item.pdesc }}</p>
     @if (item.imgpath != null){<img src="http://localhost:3000/getfoto/?file={{ item.imgpath }}" />}
+ 
+    @if (item.imgarr != null){
+      <p>i exist </p>
+      <multiimgdisplay [imgarr]="item.imgarr"  />
 
+}
     <div>
      <button class="btn" id="{{ item.idposts }}" (click)="editfn(item.idposts)">Labot</button>
     </div>
@@ -36,7 +42,7 @@ import { Editcomponent } from "./Editpost.component";
 export class IerakstiComponent {
  Ieraksti: Ieraksts[] = [];
 poststaus: Editpost = {idposts: 0, status: false,viewstatsus: false};
-
+ 
  editstatus: boolean = false;
  @Input() searchtext: string = "";
  Ierakstuskaits: number = 0;
@@ -102,6 +108,7 @@ this.poststaus={idposts: event, status: false,viewstatsus: true};
    .then((response) => response.json())
    .then((data) => {
     this.Ieraksti = data.posts;
+    console.log (this.Ieraksti);
     this.Ierakstuskaits = data.count;
     this.pagecalc(data.count);
    })

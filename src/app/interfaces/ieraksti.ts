@@ -4,5 +4,8 @@ export interface Ieraksts {
         title: string;
         pdesc: string;
         imgpath: string;
+        imgarr :{
+                images :[];
+        }
    
 }
