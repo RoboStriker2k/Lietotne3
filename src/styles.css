@@ -20,6 +20,8 @@
     --UPLOADBGcolor: #695e5e;
     --uploadbuttoncolor: #77b4b1;
     --uploadbuttonhovercolor: #69a09d;
+    --maxeditimgwidth: 300px;
+    --maxeditimgheight: 300px;
    }
    button {
     transition: 0.3s;
@@ -100,7 +102,7 @@
    #dyncontent {
     background-color: var(--dyncontentbg);
     color: var(--color-text-main);
-    padding: 20px 20px 20px 20px;
+    padding: 10px 10px 10px 10px;
    }
   
    .iecontent {
@@ -111,10 +113,10 @@
    .ieraksts {
     background-color: var(--postbgcolor);
     color: var(--color-text-main);
-    padding: 10px;
+    padding: 5px;
     text-align: center;
     border: 2px solid transparent;
-    margin: 10px;
+    margin: 5px;
     max-width: fit-content;
     max-height: fit-content;
    }
@@ -195,13 +197,30 @@
     max-width: 200px;
     max-height: 200px;
    }
-  
+   .editieraksts {
+    background-color: var(--postbgcolor);
+    color: var(--color-text-main);
+    padding: 5px;
+    text-align: center;
+    border: 2px solid transparent;
+    margin: 5px;
+    max-width: fit-content;
+    max-height: fit-content;
+   }
+
+   .editieraksts img {
+    max-width: var(--maxeditimgwidth );
+    max-height: var(--maxeditimgheight );
+    margin: var(--image-margin);
+   }
    .editview{
     z-index: 1000;
     position: fixed;
+    max-height: 90%;
+    
     top: 50%;
     left: 50%;
-min-width: 500px;
+min-width: 300px;
     transform: translate(-50%, -50%);
     background-color: var(--UPLOADBGcolor);
     padding: 20px;
@@ -218,8 +237,8 @@ min-width: 500px;
 }
 .edit #preview {
     display: flex;
-    max-width: 200px;
-    max-height: 200px;
+    max-width: 150px;
+    max-height: 150px;
    }
    .editier{
   flex-direction: column;

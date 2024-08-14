@@ -9,7 +9,7 @@ import { Component, Input } from "@angular/core";
    @for (img of imgarr.images; track img) {
    <img src="http://localhost:3000/getfoto/?file={{ img }}" />
     @if (editstatus == true) {
-    <input type="checkbox" id="{{ img }}" />
+    <input className="multiimgcheck" type="checkbox" id="{{ img }}" />
     }
 
    }  
