@@ -45,8 +45,11 @@ import { Searchcomponent } from "./components/Search.component";
     
    </div>
    <div id="content">
-   <ierakstuskaits />
-    <p>Lietotnes ieraksti</p>
+    <div class="content-header">
+      
+    <ierakstuskaits />
+    <H1>Lietotnes ieraksti</H1>
+    </div>
     <div id="dyncontent">
      <Deletecomponent
       [deletestatus]="deletestatus"
