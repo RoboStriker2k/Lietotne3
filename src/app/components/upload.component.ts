@@ -14,11 +14,17 @@ import { Component, EventEmitter, Input, Output } from "@angular/core";
       <p>Ieraksta apraksts</p>
       <input type="text" id="uploadpdesc" placeholder="Ieraksta apraksts" />
       <div>
+    <div>
        <p>Ieraksta attels -li (var arī nepievienot)</p>
-       @for (img of prviews; track img) {
-       <img id="preview" [src]="img" />
-       }
        <input id="fileupl" type="file" multiple (change)="onMultipleFilesSelected($event)" />
+    </div>
+       @for (img of prviews; track img) {
+       <div class="editgrid">
+        <img id="preview" [src]="img" />
+        <button class="removebtn" type="button" (click)="removefromupload(prviews.indexOf(img))">X</button>
+       </div>
+       }
+       
       </div>
       <div>
        <button type="button" (click)="onUpload()">Upload</button>
@@ -89,18 +95,30 @@ export class Uploadcomponent {
 
  onMultipleFilesSelected(event: any) {
   let files = [];
-
   for (let i = 0; i < event.target.files.length; i++) {
    files.push(event.target.files[i]);
-   const reader = new FileReader();
-   reader.onload = (e) => {
-    if (e.target) {
-     (this.prviews.push(e.target.result) as unknown as string) ?? "";
-    }
-   };
-   reader.readAsDataURL(files[i]);
+   this.renderpic(files[i]);
   }
 
   this.files = files;
+ }
+ renderpic(img: File) {
+  const reader = new FileReader();
+  reader.onload = (e) => {
+   if (e.target) {
+    (this.prviews.push(e.target.result) as unknown as string) ?? "";
+   }
+  };
+  reader.readAsDataURL(img);
+ }
+ removefromupload(fileindex: number) {
+  if (fileindex != -1) {
+   this.prviews.splice(fileindex, 1);
+  }
+  if (this.files != null) {
+   if (fileindex != -1) {
+    this.files.splice(fileindex, 1);
+   }
+  }
  }
 }

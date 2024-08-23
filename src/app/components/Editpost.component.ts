@@ -228,15 +228,10 @@ renderpic(img :File){
   };
   reader.readAsDataURL(img);
 }
-
-
-
  removefromupload(fileindex : number,) {
-
   if (fileindex != -1) {
    this.prviews.splice(fileindex, 1);
   }
-
   if (this.files != null) {
    if (fileindex != -1) {
     this.files.splice(fileindex, 1);

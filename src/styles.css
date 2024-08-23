@@ -287,7 +287,7 @@ button.btn:hover {
  grid-template-columns: 1fr 1fr 1fr;
 }
 .editgrid {
- display: inline-block ;
+ display: inline-block;
  grid-template-columns: 1fr 1fr;
  grid-row: inherit;
 }
@@ -298,7 +298,7 @@ button.btn:hover {
  text-align: left;
  justify-content: left;
 }
-.editgrid.editupl::-webkit-file-upload-button{
+.editgrid.editupl::-webkit-file-upload-button {
  background-color: var(--navbutton-bg);
  border: 2px solid var(--navbar-bg);
  color: black;
@@ -309,10 +309,9 @@ button.btn:hover {
 }
 
 .edittext {
-  min-width: 100px;
-  max-width: fit-content;
-  text-wrap: anywhere;
-  text-overflow: clip;
-size : 200px;
-
+ min-width: 100px;
+ max-width: fit-content;
+ text-wrap: anywhere;
+ text-overflow: clip;
+ size: 200px;
 }
