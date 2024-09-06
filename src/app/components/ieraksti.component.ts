@@ -4,44 +4,46 @@ import { Editpost } from "../interfaces/editpost";
 import { PagebuttonsComponent } from "./Pagebuttons.component";
 import { Editcomponent } from "./Editpost.component";
 import { Multiimgdisplay } from "./multiimgdisplay.component";
+import { GalleryviewComponent } from "./galleryview.component";
+
 @Component({
  selector: "Ieraksti",
- imports: [PagebuttonsComponent, Editcomponent, Multiimgdisplay],
+ imports: [PagebuttonsComponent, Editcomponent, Multiimgdisplay, GalleryviewComponent],
  template: ` <div>
   <div id="postcntbox">
    <p>Atrasto ierakstu skaits:{{ Ierakstuskaits }}</p>
   </div>
-
+  <Editcomponent [Posttatus]="this.poststaus" />
+  <Galleryview [gst]="this.galerystate" (resetgalery)="resetgallery()" />
   <div id="ieraksti" class="iecontent">
    @if (Ieraksti.length == 0) {
    <p>Nav ierakstu</p>
    } @else { @for (item of Ieraksti;track item.idposts) {
    <div class="ieraksts" id="{{ item.idposts }}">
     @if (deletestatus == true) {<input type="checkbox" id="{{ item.idposts }}" />}
-
     <h1>{{ item.title }}</h1>
     <p>{{ item.pdesc }}</p>
-    @if (item.imgpath != null){<img src="http://localhost:3000/getfoto/?file={{ item.imgpath }}" />}
- 
-    @if (item.imgarr != null){
-      <multiimgdisplay [imgarr]="item.imgarr"  />
-
-}
+    @if (item.imgpath != null){<img src="http://localhost:3000/getfoto/?file={{ item.imgpath }}" />} @if (item.imgarr !=
+    null){
+    <multiimgdisplay [imgarr]="item.imgarr" />
+    } @if (item.imgpath || item.imgarr) {
+    <button type="button" (click)="setgallerystate(item.idposts)">Skatīt</button>
+    }
     <div>
      <button class="btn" id="{{ item.idposts }}" (click)="editfn(item.idposts)">Labot</button>
     </div>
    </div>
    } }
   </div>
-  <Editcomponent [Posttatus]="this.poststaus" />
+
   <Pagebuttons [page]="this.page" [maxpages]="this.maxpages" (gonext)="nextpage($event)" />
  </div>`,
  standalone: true,
 })
 export class IerakstiComponent {
  Ieraksti: Ieraksts[] = [];
-poststaus: Editpost = {idposts: 0, status: false,viewstatsus: false};
- 
+ poststaus: Editpost = { idposts: 0, status: false, viewstatsus: false };
+ galerystate: Editpost = { idposts: 0, status: false, viewstatsus: false };
  editstatus: boolean = false;
  @Input() searchtext: string = "";
  Ierakstuskaits: number = 0;
@@ -65,12 +67,15 @@ poststaus: Editpost = {idposts: 0, status: false,viewstatsus: false};
  constructor() {
   this.dosearch();
  }
-
+ setgallerystate(id: number) {
+  this.galerystate = { ...this.galerystate, idposts: id, status: false, viewstatsus: true };
+ }
+ resetgallery() {
+  this.galerystate = { ...this.galerystate, idposts: 0, status: false, viewstatsus: false };
+ }
 
  editfn(event: number = this.poststaus.idposts) {
-  console.log(event);
-this.poststaus={idposts: event, status: false,viewstatsus: true};
-
+  this.poststaus = { idposts: event, status: false, viewstatsus: true };
  }
 
  getIeraksti() {
@@ -83,7 +88,6 @@ this.poststaus={idposts: event, status: false,viewstatsus: true};
    .then((response) => response.json())
    .then((data) => {
     this.Ieraksti = data.posts;
-    console.log(this.Ieraksti);
    })
    .catch((error) => {
     console.error("Error:", error);
@@ -107,7 +111,6 @@ this.poststaus={idposts: event, status: false,viewstatsus: true};
    .then((response) => response.json())
    .then((data) => {
     this.Ieraksti = data.posts;
-    console.log (this.Ieraksti);
     this.Ierakstuskaits = data.count;
     this.pagecalc(data.count);
    })
