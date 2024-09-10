@@ -11,7 +11,7 @@ import { GalleryviewComponent } from "./galleryview.component";
  imports: [PagebuttonsComponent, Editcomponent, Multiimgdisplay, GalleryviewComponent],
  template: ` <div>
   <div id="postcntbox">
-   <p>Atrasto ierakstu skaits:{{ Ierakstuskaits }}</p>
+   <p>Atrasto ierakstu skaits datubāze: {{ Ierakstuskaits }}</p>
   </div>
   <Editcomponent [Posttatus]="this.poststaus" />
   <Galleryview [gst]="this.galerystate" (resetgalery)="resetgallery()" />
@@ -26,11 +26,12 @@ import { GalleryviewComponent } from "./galleryview.component";
     @if (item.imgpath != null){<img src="http://localhost:3000/getfoto/?file={{ item.imgpath }}" />} @if (item.imgarr !=
     null){
     <multiimgdisplay [imgarr]="item.imgarr" />
-    } @if (item.imgpath || item.imgarr) {
+    } 
+    <div>
+    <button class="btn" id="{{ item.idposts }}" (click)="editfn(item.idposts)">Labot</button>
+     @if (item.imgpath || item.imgarr) {
     <button type="button" (click)="setgallerystate(item.idposts)">Skatīt</button>
     }
-    <div>
-     <button class="btn" id="{{ item.idposts }}" (click)="editfn(item.idposts)">Labot</button>
     </div>
    </div>
    } }
