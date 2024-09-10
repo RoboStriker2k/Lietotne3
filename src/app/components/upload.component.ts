@@ -79,20 +79,6 @@ export class Uploadcomponent {
   this.Update.emit();
  }
 
- onFileSelected(event: any) {
-  this.file = event.target.files[0];
-  if (this.file) {
-   let img = document.getElementById("preview") as HTMLImageElement;
-   const reader = new FileReader();
-   reader.onload = (e) => {
-    if (e.target) {
-     img.src = (e.target.result as string) ?? "";
-    }
-   };
-   reader.readAsDataURL(this.file);
-  }
- }
-
  onMultipleFilesSelected(event: any) {
   let files = [];
   for (let i = 0; i < event.target.files.length; i++) {
