@@ -6,10 +6,13 @@ import { Component, Input } from "@angular/core";
   <div id="multiimg">
 @defer ( when imgarr != null) {
    @for (img of imgarr.images; track img) {
+<div>
    <img src="http://localhost:3000/getfoto/?file={{ img }}" />
     @if (editstatus == true) {
     <input class="multiimgcheck" type="checkbox" id="{{ img }}" />
-    }
+   
+   }
+</div>
    }  
 }
  @loading {
