@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-
+import { serverconfig } from "../app.config";
 @Component({
  selector: "ierakstuskaits",
  template: ` <div id="postcntbox">
@@ -10,14 +10,13 @@ import { Component } from "@angular/core";
 })
 export class IerakstuskaitsComponent {
  postcount: number = 0;
-
+ baseurl: string = serverconfig.baseurl;
  constructor() {
   this.postcount, this.getierakstuskaits();
   this.timedgetierakstuskaits();
  }
-
  getierakstuskaits() {
-  fetch(`http://localhost:3000/api/postscount/`, {
+  fetch(this.baseurl + "/api/postscount/", {
    method: "GET",
    headers: {
     "Content-Type": "application/json",

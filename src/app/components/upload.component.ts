@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { serverconfig } from "../app.config";
 
 @Component({
  selector: "Uploadcomponent",
@@ -14,17 +15,16 @@ import { Component, EventEmitter, Input, Output } from "@angular/core";
       <p>Ieraksta apraksts</p>
       <input type="text" id="uploadpdesc" placeholder="Ieraksta apraksts" />
       <div>
-    <div>
-       <p>Ieraksta attels -li (var arī nepievienot)</p>
-       <input id="fileupl" type="file" multiple (change)="onMultipleFilesSelected($event)" />
-    </div>
+       <div>
+        <p>Ieraksta attels -li (var arī nepievienot)</p>
+        <input id="fileupl" type="file" multiple (change)="onMultipleFilesSelected($event)" />
+       </div>
        @for (img of prviews; track img) {
        <div class="editgrid">
         <img id="preview" [src]="img" />
         <button class="removebtn" type="button" (click)="removefromupload(prviews.indexOf(img))">X</button>
        </div>
        }
-       
       </div>
       <div>
        <button type="button" (click)="onUpload()">Upload</button>
@@ -42,6 +42,7 @@ export class Uploadcomponent {
  @Input() uploadstatus: boolean = false;
  @Output() Changeuploadstatus = new EventEmitter<boolean>();
  @Output() Update = new EventEmitter<boolean>();
+ baseurl: string = serverconfig.baseurl;
  uploadtittle: string = "";
  uploaddesc: string = "";
  file: File | null = null;
@@ -66,7 +67,7 @@ export class Uploadcomponent {
   formdata.append("title", ptitle.value);
   formdata.append("pdesc", pdesc.value);
 
-  fetch("http://localhost:3000/api/addpost", {
+  fetch(this.baseurl + "/api/addpost", {
    method: "post",
    body: formdata,
   })

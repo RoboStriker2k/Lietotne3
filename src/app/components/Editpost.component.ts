@@ -1,6 +1,5 @@
 import { ChangeDetectorRef, Component, inject, Input } from "@angular/core";
-import { Ieraksts } from "../interfaces/ieraksti";
-import { Editpost } from "../interfaces/editpost";
+import { Ieraksts,Editpost } from "../interfaces/interfaces";
 import { Multiimgdisplay } from "./multiimgdisplay.component";
 
 @Component({
@@ -35,7 +34,7 @@ import { Multiimgdisplay } from "./multiimgdisplay.component";
      <div class="editieraksts" id="{{ item.idposts }}">
       <h1 id="previewtitle">{{ item.title }}</h1>
       <p id="previewdesc">{{ item.pdesc }}</p>
-      @if (item.imgpath != null){<img id="previewimg" src="http://localhost:3000/getfoto/{{ item.imgpath }}" />
+      @if (item.imgpath != null){<img id="previewimg" src="{{baseurl}}/getfoto/{{ item.imgpath }}" />
       <input type="checkbox" class="imgpathcheck" id="{{ item.imgpath }}" />
       } @if (item.imgarr != null){
       <multiimgdisplay [imgarr]="item.imgarr" [editstatus]="true" />
@@ -71,7 +70,7 @@ export class Editcomponent {
  @Input() Posttatus: Editpost = { idposts: 0, status: false, viewstatsus: false };
  IER: Ieraksts[] = [];
  CIER: Ieraksts[] = [];
-
+@Input() baseurl:string =""
  removeflag: boolean = false;
  replaceflag: boolean = false;
  imgpath: string = "";

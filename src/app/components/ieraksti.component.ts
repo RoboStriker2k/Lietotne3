@@ -1,11 +1,10 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
-import { Ieraksts } from "../interfaces/ieraksti";
-import { Editpost } from "../interfaces/editpost";
+import { Ieraksts,Editpost } from "../interfaces/interfaces";
 import { PagebuttonsComponent } from "./Pagebuttons.component";
 import { Editcomponent } from "./Editpost.component";
 import { Multiimgdisplay } from "./multiimgdisplay.component";
 import { GalleryviewComponent } from "./galleryview.component";
-
+import { serverconfig } from "../app.config";
 @Component({
  selector: "Ieraksti",
  imports: [PagebuttonsComponent, Editcomponent, Multiimgdisplay, GalleryviewComponent],
@@ -13,7 +12,7 @@ import { GalleryviewComponent } from "./galleryview.component";
   <div id="postcntbox">
    <p>Atrasto ierakstu skaits datubāze: {{ Ierakstuskaits }}</p>
   </div>
-  <Editcomponent [Posttatus]="this.poststaus" />
+  <Editcomponent [Posttatus]="this.poststaus" [baseurl]="baseurl" />
   <Galleryview [gst]="this.galerystate" (resetgalery)="resetgallery()" />
   <div id="ieraksti" class="iecontent">
    @if (Ieraksti.length == 0) {
@@ -23,20 +22,18 @@ import { GalleryviewComponent } from "./galleryview.component";
     @if (deletestatus == true) {<input type="checkbox" id="{{ item.idposts }}" />}
     <h1>{{ item.title }}</h1>
     <p>{{ item.pdesc }}</p>
-    @if (item.imgpath != null){<img src="http://localhost:3000/getfoto/?file={{ item.imgpath }}" />} @if (item.imgarr !=
-    null){
+    @if (item.imgpath != null){<img src="{{ baseurl }}/getfoto/?file={{ item.imgpath }}" />} @if (item.imgarr != null){
     <multiimgdisplay [imgarr]="item.imgarr" />
-    } 
-    <div>
-    <button class="btn" id="{{ item.idposts }}" (click)="editfn(item.idposts)">Labot</button>
-     @if (item.imgpath || item.imgarr) {
-    <button type="button" (click)="setgallerystate(item.idposts)">Skatīt</button>
     }
+    <div>
+     <button class="btn" id="{{ item.idposts }}" (click)="editfn(item.idposts)">Labot</button>
+     @if (item.imgpath || item.imgarr) {
+     <button type="button" (click)="setgallerystate(item.idposts)">Skatīt</button>
+     }
     </div>
    </div>
    } }
   </div>
-
   <Pagebuttons [page]="this.page" [maxpages]="this.maxpages" (gonext)="nextpage($event)" />
  </div>`,
  standalone: true,
@@ -47,6 +44,7 @@ export class IerakstiComponent {
  galerystate: Editpost = { idposts: 0, status: false, viewstatsus: false };
  editstatus: boolean = false;
  @Input() searchtext: string = "";
+ baseurl: string = serverconfig.baseurl;
  Ierakstuskaits: number = 0;
  page: number = 0;
  maxpages: number = 0;
@@ -58,7 +56,6 @@ export class IerakstiComponent {
  @Input() set updatesrc(value: boolean) {
   this.Delte = value;
   this.dosearch();
-  console.log(this.page, this.getpostammount, this.searchtext);
  }
  @Input() set Search(value: string) {
   this.searchtext = value;
@@ -104,8 +101,7 @@ export class IerakstiComponent {
   formdata.append("ammount", ammount.toString());
   formdata.append("offset", offset.toString());
   formdata.append("searchtext", searchtext);
-
-  fetch("http://localhost:3000/search", {
+  fetch(this.baseurl + "/search", {
    method: "post",
    body: formdata,
   })

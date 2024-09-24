@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { serverconfig } from "../app.config";
 
 @Component({
  selector: "Deletecomponent",
@@ -20,6 +21,7 @@ export class Deletecomponent {
  @Input() deletestatus: boolean = false;
  @Output() Changedeletestatus = new EventEmitter<boolean>();
  @Output() Deleted = new EventEmitter<boolean>();
+ baseurl:string=serverconfig.baseurl;
  delsel: string[] = [];
  toggledelete() {
   this.Changedeletestatus.emit();
@@ -54,7 +56,7 @@ export class Deletecomponent {
     deleteform.append("idlist", this.delsel[0]);
    }
 
-   fetch("http://localhost:3000/api/deleteposts", {
+   fetch(this.baseurl+"/api/deleteposts", {
     method: "post",
     body: deleteform,
    })

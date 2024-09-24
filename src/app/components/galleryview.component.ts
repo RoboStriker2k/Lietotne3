@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
-import { Editpost } from "../interfaces/editpost";
+import { Editpost } from "../interfaces/interfaces";
+import { serverconfig } from "../app.config";
 
 @Component({
  selector: "Galleryview",
@@ -49,10 +50,10 @@ export class GalleryviewComponent {
   currimg: "",
   imageindex: 0,
  };
- imgurl = "http://localhost:3000/getfoto/?file=";
+ imgurl = serverconfig.baseurl+"/getfoto/?file=";
 
  getpost() {
-  fetch(`http://localhost:3000/api/getpost/?postiid=${this.gst.idposts}`, {
+  fetch(serverconfig.baseurl+`/api/getpost/?postiid=${this.gst.idposts}`, {
    method: "GET",
   })
    .then((response) => response.json())

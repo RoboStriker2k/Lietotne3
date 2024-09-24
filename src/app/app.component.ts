@@ -1,16 +1,16 @@
 import { Component } from "@angular/core";
-import { RouterOutlet } from "@angular/router";
 import { IerakstuskaitsComponent } from "./components/ierakstuskaits.component";
 import { IerakstiComponent } from "./components/ieraksti.component";
 import { PagebuttonsComponent } from "./components/Pagebuttons.component";
 import { Deletecomponent } from "./components/deletepost.component";
 import { Uploadcomponent } from "./components/upload.component";
 import { Searchcomponent } from "./components/Search.component";
+import { serverconfig } from "./app.config";
 @Component({
  selector: "app-root",
  standalone: true,
  imports: [
-  RouterOutlet,
+
   IerakstuskaitsComponent,
   IerakstiComponent,
   PagebuttonsComponent,
@@ -44,6 +44,7 @@ import { Searchcomponent } from "./components/Search.component";
      (Update)="callsearch()" />
     
    </div>
+
    <div id="content">
     <div class="content-header">
       
@@ -76,8 +77,8 @@ export class AppComponent {
  deletestatus: boolean = false;
  uploadstatus: boolean = false;
  updatesrc: boolean = false;
- searchtext: string = "";
-
+ searchtext: string = ""
+baseurl:string= serverconfig.baseurl;
  changedeletestatus() {
   this.deletestatus = !this.deletestatus;
  }
@@ -93,4 +94,5 @@ export class AppComponent {
  refrsh() {
   location.reload();
  }
+
 }
