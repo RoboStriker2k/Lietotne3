@@ -6,7 +6,7 @@ export const appConfig: ApplicationConfig = {
  providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes)],
 };
 export const serverconfig: configfile = {
- baseurl: `${process.env["baseurl"]}` || "http://localhost:3000",
+ baseurl: "http://"+window.location.hostname+":3000",
 };
 export interface configfile {
  baseurl: string;
