@@ -125,7 +125,7 @@ export class Editcomponent {
    deleteform.append("replaceflag", this.replaceflag.toString());
    deleteform.append("removeflag", this.removeflag.toString());
    deleteform.append("idpost", this.Posttatus.idposts.toString());
-   fetch(`http://localhost:3000/api/editpost/`, {
+   fetch('http://' + window.location.hostname + `:3000/api/editpost/`, {
     method: "POST",
     body: deleteform,
    })
@@ -140,7 +140,6 @@ export class Editcomponent {
    this.imgpath = "";
    this.imgarr = [];
   }
-  //todo implement deletion
  }
 
  editfn(imgpath?: string, imgarr?: []) {
@@ -172,7 +171,7 @@ export class Editcomponent {
   formdata.append("replaceflag", this.replaceflag.toString());
   formdata.append("removeflag", this.removeflag.toString());
   formdata.append("idpost", this.Posttatus.idposts.toString());
-  fetch(`http://localhost:3000/api/editpost/`, {
+  fetch('http://' + window.location.hostname + `:3000/api/editpost/`, {
    method: "POST",
    body: formdata,
   })
@@ -191,7 +190,7 @@ export class Editcomponent {
  getpost() {
   let id = this.Posttatus.idposts;
   console.log(id);
-  fetch(`http://localhost:3000/api/getpost/?postiid=${id}`, {
+  fetch('http://' + window.location.hostname + `:3000/api/getpost/?postiid=${id}`, {
    method: "GET",
   })
    .then((response) => response.json())
